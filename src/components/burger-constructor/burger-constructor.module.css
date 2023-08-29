@@ -1,0 +1,14 @@
+.column{
+    position: relative;    
+    width: 488px;
+    height: 650px;
+}
+
+.total {
+    padding-top: 40px;
+    display:flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: end;
+}

@@ -1,0 +1,35 @@
+.column{
+    position: relative;
+    width: 600px;
+    height: 650px;
+}
+
+.fl {
+    display: flex;
+}
+
+.ingredientsGroupList {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  list-style-type: none;
+}
+
+.product {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  cursor: pointer;
+  height: 208px;
+  width:272px;
+  text-align: center;
+}
+
+.scrollzone {
+  overflow-y: scroll;
+  height: 600px;
+}
