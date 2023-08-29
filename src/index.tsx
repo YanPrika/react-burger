@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/app/App';
-//import {Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'; 
+import App from './components/app/App'; 
 
-ReactDOM.render(
-    <div> 
-       <App />     
-    </div>,
+ReactDOM.render(    
+    <App />,
   document.getElementById('root')
 );
