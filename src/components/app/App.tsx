@@ -11,10 +11,10 @@ export const App = () => {
       <div className={css.main_rect}>
         <AppHeader />
       </div>
-      <div className={css.main_columns}>
+      <main className={css.main_columns}>
         <BurgerIngredients />
         <BurgerConstructor />
-      </div>
+      </main>
     </>    
   );
 }

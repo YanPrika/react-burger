@@ -5,7 +5,13 @@
 }
 
 .fl {
-    display: flex;
+    display: flex; 
+}
+.price {
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  padding-right: 5px;  
 }
 
 .ingredientsGroupList {
@@ -14,7 +20,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 24px;
-  list-style-type: none;
+  list-style-type: none;  
+  padding-left: 0;
 }
 
 .product {
@@ -26,10 +33,23 @@
   cursor: pointer;
   height: 208px;
   width:272px;
-  text-align: center;
+  text-align: center;  
 }
 
 .scrollzone {
   overflow-y: scroll;
   height: 600px;
+}
+
+.scrollzone::-webkit-scrollbar {
+  width: 10px;               
+}
+.scrollzone::-webkit-scrollbar-track {
+  background: rgb(108, 38, 189);
+  border-radius: 15px;        
+}
+.scrollzone::-webkit-scrollbar-thumb {
+  background-color: blue;    
+  border-radius: 20px;       
+  border: 3px solid rgb(75, 9, 105);  
 }
