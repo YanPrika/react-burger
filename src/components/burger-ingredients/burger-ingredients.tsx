@@ -2,15 +2,9 @@ import React, {useRef} from 'react';
 import {Tab, Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-ingredients.module.css';
 import data from '../../utils/data';
+import {Ingredient} from '../../utils/index'; 
 
-interface IngredienParams {
-    _id: string;
-    name: string;
-    price: number;
-    image: string;
-  } 
-
-const IngredienParams = ({image, name, price}: IngredienParams ) => (
+const IngredienParams = ({image, name, price}: Ingredient ) => (
     <div className={css.product} >
         <img src={image} alt={name}/>
         <Counter count={1} size="small"/>
