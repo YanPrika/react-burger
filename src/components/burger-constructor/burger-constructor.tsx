@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-constructor.module.css';
 import data from '../../utils/data';
+import {Ingredient} from '../../utils';
 
 export const BurgerConstructor = () => {
 
