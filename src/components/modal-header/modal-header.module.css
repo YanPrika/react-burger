@@ -1,0 +1,27 @@
+.button {
+    background: transparent;
+    padding-right: 40px;
+    cursor: pointer;
+    transition: opacity 0.4s ease-out;
+    outline: none;
+    border: none;
+    float: right;
+  }
+  
+.button:hover {
+  opacity: 0.6;
+}
+
+.title {
+  display: inline;
+  text-align: left;
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-bottom: 60px;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}  

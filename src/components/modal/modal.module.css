@@ -1,0 +1,30 @@
+.modalContainer {
+  width: 720px;
+  height: 718px; 
+  background: #1C1C21;
+  box-sizing: border-box;
+  border-radius: 40px;
+  position: relative;
+  }
+
+.modalChildContainer{
+  width: 320px;
+  height: 718px; 
+  background: #1C1C21;
+  box-sizing: border-box;
+  border-radius: 40px;
+  position: relative;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: flex-start;
+  height: 64px;
+}
+
+.closeModalButton {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+  cursor: pointer;
+}

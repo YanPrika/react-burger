@@ -1,0 +1,26 @@
+.detail {
+  display: flex;
+  justify-content: space-around;
+}
+
+.image {
+  width: 480px;
+  height: 240px;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  padding-left: 110px;
+  padding-bottom: 80px;
+  justify-content: center;
+}
+
+.modalHeader{
+  padding-top: 30px;
+}
+
+.name {
+  display: flex;
+  padding-left: 190px;
+  max-width: 480px;
+  padding-bottom: 50px;
+}
