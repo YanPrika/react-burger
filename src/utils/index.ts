@@ -16,7 +16,7 @@ export type Ingredient = {
     __v: number;
   };
 
-export interface ingredient extends Array<ingredient> {
+/* export interface ingredient extends Array<ingredient> {
   _id: string;
   name: string;
   type: string;
@@ -29,7 +29,7 @@ export interface ingredient extends Array<ingredient> {
   image_mobile: string;
   image_large: string;
   __v: number;
-};
+}; */
 
 export type Test = {
   idItem: number;

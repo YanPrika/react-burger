@@ -3,11 +3,17 @@ import css from "./order-details.module.css";
 import Modal from "../../modal/modal";
 import vector from "../../images/vector.svg";
 import checkmark from "../../images/checkmark.svg";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const OrderDetails: FC<{ order: string, onClose: any }> = ({ order, onClose }) => {
   return (
     <Modal onClose={onClose}>
         <div className={css.container}>
+            <div className={css.header}>
+                <button onClick={onClose} className={css.button}>
+                    <CloseIcon type='primary' />
+                </button>
+            </div>
             <p className="text text_type_digits-large pb-5">65464</p>
             <p className="text text_type_main-default pb-5">Идентификатор заказа</p>
             <div className={css.imageContainer}>                

@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Tab, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-ingredients.module.css';
-import { Ingredient, ingredient } from '../../utils/index';
+import { Ingredient } from '../../utils/index';
 import { getIngredients } from '../../utils/api';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal';
-import BurgerIngredientItem from '../app/burger-ingredients-item/burger-ingredients-item';
 
-const IngredienParams = ({ image, name, price }: ingredient) => (
+const IngredienParams = ({ image, name, price }: Ingredient) => (
     <div className={css.product} >
         <img src={image} alt={name} />
         <Counter count={1} size="small" />
@@ -23,23 +21,26 @@ const IngredienParams = ({ image, name, price }: ingredient) => (
 
 export const BurgerIngredients = ({  } ) => {
     
-    let dataId = "";    
+    let dataId: string;    
 
-    const [arrIngr, setArrIngr] = useState<ingredient>();
+    const [arrIngr, setArrIngr] = useState<Ingredient[]>();
     useEffect(() => {
         getIngredients()
-        .then(async (res) => await res.json())
+        .then((res) => {if (res.ok) return res; else console.log(res.statusText)})
+        .then(async (res) => await res?.json())
         .then((res) => setArrIngr(res.data))
+        .catch((error) => {console.log(error)})
     }, []);
 
-    const [show, setShow] = useState(false);
+    const [showModal, setShow] = useState(<></>);
 
-    function showDialog() {
-        setShow(true);        
+    function showDialog(id: string) {
+        
+        setShow(<IngredientDetails dataId={id} onClose={hideDialog} /> as JSX.Element);        
     }
 
     function hideDialog() {
-        setShow(false);        
+        setShow(<></>);        
     }
 
     const bunsRef = useRef<HTMLHeadingElement>(null);
@@ -51,7 +52,7 @@ export const BurgerIngredients = ({  } ) => {
     const bunArray = arrIngr?.filter((item) => item.type === 'bun');
     const mainArray = arrIngr?.filter((item) => item.type === 'main');
     const sauceArray = arrIngr?.filter((item) => item.type === 'sauce');
-    /* console.log(arrIngr?.filter((item) => item._id === '643d69a5c3f7b9001cfa093c')); */
+    
     return (
         <div className={`${css.column} pt-10 pl-5`}>
             <h1 className="text text_type_main-large">
@@ -62,37 +63,34 @@ export const BurgerIngredients = ({  } ) => {
                 <Tab value="main" active={current === 'main'} onClick={setCurrent}>Начинки</Tab>
                 <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>Соусы</Tab>
             </div>
-
+            {showModal}
             <div className={css.scrollzone}>
                 <h2 className="text text_type_main-medium pt-10 pl-5" ref={bunsRef}>Булки</h2>
                 
-                <ul className={`${css.ingredientsGroupList} pt-6 pb-8 pl-4`} onClick={showDialog}>
+                <ul className={`${css.ingredientsGroupList} pt-6 pb-8 pl-4`}>
                     {bunArray?.map((item) => (
-                        <div className={css.product} data-id = {item._id} key={item._id}>
-                            <IngredienParams {...item} />
-                            {show && <IngredientDetails dataId={item._id} onClose={hideDialog} />}                            
+                        <div className={css.product} data-id = {item._id} key={item._id} onClick={()=>{showDialog(item._id)}}>
+                            <IngredienParams {...item} />                                                        
                         </div>
                     ))}                    
                 </ul>
 
                 <h2 className="text text_type_main-medium pt-10 pl-5" ref={saucesRef}>Соусы</h2>
 
-                <ul className={`${css.ingredientsGroupList} pt-6 pb-8 pl-4`} onClick={showDialog}>
+                <ul className={`${css.ingredientsGroupList} pt-6 pb-8 pl-4`} >
                     {sauceArray?.map((item) => (
-                        <div className={css.product} data-id = {item._id} key={item._id}>
-                            <IngredienParams {...item} />
-                            {show && <IngredientDetails dataId={item._id} onClose={hideDialog} />}
+                        <div className={css.product} data-id = {item._id} key={item._id} onClick={()=>{showDialog(item._id)}}>
+                            <IngredienParams {...item} />                            
                         </div>
                     ))}
                 </ul>
 
                 <h2 className="text text_type_main-medium pt-10 pl-5" ref={mainRef}>Начинки</h2>
 
-                <ul className={`${css.ingredientsGroupList} pt-6 pb-8 pl-4`} onClick={showDialog}>
+                <ul className={`${css.ingredientsGroupList} pt-6 pb-8 pl-4`} >
                     {mainArray?.map((item) => (
-                        <div className={css.product} data-id = {item._id} key={item._id}>
-                            <IngredienParams {...item} />
-                            {show && <IngredientDetails dataId={item._id} onClose={hideDialog} />}                       
+                        <div className={css.product} data-id = {item._id} key={item._id} onClick={()=>{showDialog(item._id)}}>
+                            <IngredienParams {...item} />                                                   
                         </div>
                     ))}
                 </ul>

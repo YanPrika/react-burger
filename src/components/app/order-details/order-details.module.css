@@ -13,9 +13,31 @@
   
   .imageContainer {
     position: relative;
-    padding-top: 130px;
+    padding-top: 100px;
     height: 120px;
     width: 120px;
+  }
+
+  .header {
+    display: flex;
+    align-items: baseline;
+    padding-top: 5px;
+    padding-left: 650px;
+  }
+
+  .button {
+    background: transparent;
+    justify-content: flex-end;
+    padding-right: 40px;
+    cursor: pointer;
+    transition: opacity 0.4s ease-out;
+    outline: none;
+    border: none;
+    float: right;
+  }
+
+  .button:hover {
+    opacity: 0.6;
   }
 
   .bottomContainer {
@@ -31,7 +53,6 @@
     justify-content: center;
   }
 
-  
   .rotate {
     display: block;
     margin: auto;
@@ -41,42 +62,17 @@
   }
   
   .rotate1 {
-    composes: rotate;
+    justify-content: center;
+    padding-left: 10px;
     width: 80%;
     margin: -70px auto;
-  }
-  
-  .rotate2 {
-    composes: rotate;
-    width: 80%;
-    margin: -95px auto;
-  }
+  } 
   
   .checkmark {
     width: 48px;
     height: 48px;
-    display: block;
+    display: flex;
     margin: auto;
-    padding-top: 5px;
-    visibility: hidden;
-    animation: visibility 4s infinite linear;
+    padding-bottom: 10px;
+    visibility: visible;
   }
-  
-  @keyframes rotation {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  
-  @keyframes visibility {
-    80% {
-      visibility: hidden;
-    }
-    100% {
-      visibility: visible;
-    }
-  }
-  

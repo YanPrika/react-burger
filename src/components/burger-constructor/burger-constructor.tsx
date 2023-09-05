@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button, ConstructorElement, CurrencyIcon, Counter, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-constructor.module.css';
-import { Ingredient, ingredient, Test } from '../../utils/index';
+import { Ingredient, Test } from '../../utils/index';
 import { getIngredients } from '../../utils/api';
 import OrderDetails from '../app/order-details/order-details';
 
 export const BurgerConstructor = () => {    
 
-    const [arrIngr, setArrIngr] = useState<ingredient>();
+    const [arrIngr, setArrIngr] = useState<Ingredient[]>();
     useEffect(() => {
         getIngredients()
             .then(async (res) => await res.json())
@@ -41,7 +41,7 @@ export const BurgerConstructor = () => {
                     {bunItem?.map((item) => (
                         <div className={css.product} key={item._id}>
                             <ConstructorElement
-                                text={item.name}
+                                text={`${item.name} (верх)`}
                                 thumbnail={item.image}
                                 price={item.price}
                                 type="top"
@@ -69,7 +69,7 @@ export const BurgerConstructor = () => {
                     {bunItem?.map((item) => (
                         <ConstructorElement
                             key={item._id}
-                            text={item.name}
+                            text={`${item.name} (низ)`}
                             thumbnail={item.image}
                             price={item.price}
                             type="bottom"

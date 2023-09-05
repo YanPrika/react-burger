@@ -1,28 +1,34 @@
 import React, { FC, useState, useEffect } from 'react';
 import css from './ingredient-details.module.css';
 import { getIngredients } from '../../utils/api';
-import { ingredient } from '../../utils/index';
+import { Ingredient } from '../../utils/index';
 import Modal from '../modal/modal';
-import ModalHeader from '../modal-header/modal-header';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const IngredientDetails: FC<{ dataId: string, onClose: any }> = ({ onClose, dataId }) => {
-
-    /* const ingrStr = dataId;//"643d69a5c3f7b9001cfa093c"; */
-
-    const [arrIngr, setArrIngr] = useState<ingredient>();
+const IngredientDetails: FC<{ dataId: string, onClose: any }> = ({ onClose, dataId }) => {   
+    
+    const [arrIngr, setArrIngr] = useState<Ingredient[]>();
     useEffect(() => {
         getIngredients()
-        .then(async (res) => await res.json())
+        .then((res) => {if (res.ok) return res; else console.log(res.statusText)})
+        .then(async (res) => await res?.json())
         .then((res) => setArrIngr(res.data))
+        .catch((error) => {console.log(error)})
     }, []);
 
-    const bunItem = arrIngr?.filter((item) => item._id === "643d69a5c3f7b9001cfa093c");
+    const bunItem = arrIngr?.filter((item) => item._id === dataId);
     
     return (
         <div>
             {bunItem?.map((item) => (
                 <Modal onClose={onClose} key={item._id}>
-                    <div className={css.modalHeader}><ModalHeader onClose={onClose} header='Детали ингредиента'/></div>
+                    <div className={css.header}>
+                        <h3 className={`text text_type_main-large ${css.title}`}>Детали ингредиента</h3>
+                        <button onClick={onClose} className={css.button}>
+                            <CloseIcon type='primary' />
+                        </button>
+                    </div>
+
                     <div className={css.image}><img src={item.image_large} alt="Изображение ингридиента" /></div>
                     <p className={`${css.name} text-center text text_type_main-medium mb-8`}>{item?.name}</p>
                     <div className={`${css.detail} mb-15`}>
@@ -44,7 +50,7 @@ const IngredientDetails: FC<{ dataId: string, onClose: any }> = ({ onClose, data
                         </div>
                     </div>
                 </Modal>
-            ))};
+            ))}
         </div>
     );
 }

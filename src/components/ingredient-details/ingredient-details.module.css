@@ -24,3 +24,32 @@
   max-width: 480px;
   padding-bottom: 50px;
 }
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 30px;
+} 
+
+.title {
+  display: inline;
+  text-align: left;
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-bottom: 60px;
+}
+
+.button {
+  background: transparent;
+  padding-right: 40px;
+  cursor: pointer;
+  transition: opacity 0.4s ease-out;
+  outline: none;
+  border: none;
+  float: right;
+}
+
+.button:hover {
+opacity: 0.6;
+}
