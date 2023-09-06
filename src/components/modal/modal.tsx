@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 import css from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Ingredient } from '../../utils';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-
-const modalRoot = document.getElementById("react-modals")!;
 
 interface IModal {
   onClose: ()=>void;

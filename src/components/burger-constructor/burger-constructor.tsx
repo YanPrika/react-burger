@@ -1,23 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, MouseEventHandler } from 'react';
 import { Button, ConstructorElement, CurrencyIcon, Counter, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-constructor.module.css';
-import { Ingredient, Test } from '../../utils/index';
-import { getIngredients } from '../../utils/api';
+import { Ingredient } from '../../utils/index';
+import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-export const BurgerConstructor = ({ data } : { data: Ingredient[] } ) => {    
-   
-    const [show, setShow] = useState(false);
+export const BurgerConstructor = ({ data }: { data: Ingredient[] }) => {
+
+    const [showModal, setShow] = useState(<></>);
 
     function showDialog() {
-        setShow(true);
+        setShow(
+            <Modal onClose={hideDialog}>
+                <OrderDetails order={''} />
+            </Modal> as JSX.Element
+        );
     }
 
     function hideDialog() {
-        setShow(false);        
+        setShow(<></>);
     }
 
-    const orderSumm  = data?.reduce((a,b) => (a + b.price), 0);    
+    const orderSumm = data?.reduce((a, b) => (a + b.price), 0);
 
     const bunArray = data?.filter((item) => item.type === 'bun');
     const mainArray = data?.filter((item) => item.type === 'main');
@@ -41,7 +45,7 @@ export const BurgerConstructor = ({ data } : { data: Ingredient[] } ) => {
                                 isLocked={(item.type === 'bun') ? true : false}
                                 extraClass={undefined}
                                 handleClose={undefined}
-                            />                            
+                            />
                         </div>
                     ))}
                 </div>
@@ -78,12 +82,11 @@ export const BurgerConstructor = ({ data } : { data: Ingredient[] } ) => {
                     <div onClick={showDialog}>
                         <Button htmlType="button" type="primary" size="medium" extraClass="ml-2">
                             Оформить заказ
-                        </Button>                        
+                        </Button>
                     </div>
-                    {show && <OrderDetails order={''} onClose={hideDialog} />}
+                    {showModal}
                 </div>
             </div>
-
         </div>
     )
 }
