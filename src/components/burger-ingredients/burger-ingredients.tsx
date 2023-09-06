@@ -19,28 +19,18 @@ const IngredienParams = ({ image, name, price }: Ingredient) => (
     </div>
 )
 
-export const BurgerIngredients = ({  } ) => {
+export const BurgerIngredients = ({ data }: {data: Ingredient[]}) => {
     
-    let dataId: string;    
-
-    const [arrIngr, setArrIngr] = useState<Ingredient[]>();
-    useEffect(() => {
-        getIngredients()
-        .then((res) => {if (res.ok) return res; else console.log(res.statusText)})
-        .then(async (res) => await res?.json())
-        .then((res) => setArrIngr(res.data))
-        .catch((error) => {console.log(error)})
-    }, []);
-
+    let dataId: string;
     const [showModal, setShow] = useState(<></>);
 
     function showDialog(id: string) {
-        
-        setShow(<IngredientDetails dataId={id} onClose={hideDialog} /> as JSX.Element);        
+
+        setShow(<IngredientDetails dataId={id} onClose={hideDialog} /> as JSX.Element);
     }
 
     function hideDialog() {
-        setShow(<></>);        
+        setShow(<></>);
     }
 
     const bunsRef = useRef<HTMLHeadingElement>(null);
@@ -49,10 +39,10 @@ export const BurgerIngredients = ({  } ) => {
 
     const [current, setCurrent] = useState<string>('bun');    
 
-    const bunArray = arrIngr?.filter((item) => item.type === 'bun');
-    const mainArray = arrIngr?.filter((item) => item.type === 'main');
-    const sauceArray = arrIngr?.filter((item) => item.type === 'sauce');
-    
+    const bunArray = data?.filter((item) => item.type === 'bun');
+    const mainArray = data?.filter((item) => item.type === 'main');
+    const sauceArray = data?.filter((item) => item.type === 'sauce');
+
     return (
         <div className={`${css.column} pt-10 pl-5`}>
             <h1 className="text text_type_main-large">

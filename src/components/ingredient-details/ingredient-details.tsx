@@ -21,14 +21,10 @@ const IngredientDetails: FC<{ dataId: string, onClose: any }> = ({ onClose, data
     return (
         <div>
             {bunItem?.map((item) => (
-                <Modal onClose={onClose} key={item._id}>
+                <Modal onClose={onClose} key={item._id}> 
                     <div className={css.header}>
-                        <h3 className={`text text_type_main-large ${css.title}`}>Детали ингредиента</h3>
-                        <button onClick={onClose} className={css.button}>
-                            <CloseIcon type='primary' />
-                        </button>
+                        <h3 className={`text text_type_main-large ${css.title}`}>Детали ингредиента</h3>                        
                     </div>
-
                     <div className={css.image}><img src={item.image_large} alt="Изображение ингридиента" /></div>
                     <p className={`${css.name} text-center text text_type_main-medium mb-8`}>{item?.name}</p>
                     <div className={`${css.detail} mb-15`}>

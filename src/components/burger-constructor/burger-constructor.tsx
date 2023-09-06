@@ -3,17 +3,10 @@ import { Button, ConstructorElement, CurrencyIcon, Counter, DragIcon } from '@ya
 import css from './burger-constructor.module.css';
 import { Ingredient, Test } from '../../utils/index';
 import { getIngredients } from '../../utils/api';
-import OrderDetails from '../app/order-details/order-details';
+import OrderDetails from '../order-details/order-details';
 
-export const BurgerConstructor = () => {    
-
-    const [arrIngr, setArrIngr] = useState<Ingredient[]>();
-    useEffect(() => {
-        getIngredients()
-            .then(async (res) => await res.json())
-            .then((res) => setArrIngr(res.data))
-    }, []);
-
+export const BurgerConstructor = ({ data } : { data: Ingredient[] } ) => {    
+   
     const [show, setShow] = useState(false);
 
     function showDialog() {
@@ -24,11 +17,11 @@ export const BurgerConstructor = () => {
         setShow(false);        
     }
 
-    const orderSumm  = arrIngr?.reduce((a,b) => (a + b.price), 0);    
+    const orderSumm  = data?.reduce((a,b) => (a + b.price), 0);    
 
-    const bunArray = arrIngr?.filter((item) => item.type === 'bun');
-    const mainArray = arrIngr?.filter((item) => item.type === 'main');
-    const sauceArray = arrIngr?.filter((item) => item.type === 'sauce');
+    const bunArray = data?.filter((item) => item.type === 'bun');
+    const mainArray = data?.filter((item) => item.type === 'main');
+    const sauceArray = data?.filter((item) => item.type === 'sauce');
 
     const allInngrArray = mainArray?.concat(sauceArray !== undefined ? sauceArray : []);
 
