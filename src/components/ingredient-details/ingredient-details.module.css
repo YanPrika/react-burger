@@ -1,0 +1,55 @@
+.detail {
+  display: flex;
+  justify-content: space-around;
+}
+
+.image {
+  width: 480px;
+  height: 240px;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  padding-left: 110px;
+  padding-bottom: 80px;
+  justify-content: center;
+}
+
+.modalHeader{
+  padding-top: 30px;
+}
+
+.name {
+  display: flex;
+  padding-left: 190px;
+  max-width: 480px;
+  padding-bottom: 50px;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 30px;
+} 
+
+.title {
+  display: inline;
+  text-align: left;
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-bottom: 60px;
+}
+
+.button {
+  background: transparent;
+  padding-right: 40px;
+  cursor: pointer;
+  transition: opacity 0.4s ease-out;
+  outline: none;
+  border: none;
+  float: right;
+}
+
+.button:hover {
+opacity: 0.6;
+}

@@ -1,0 +1,78 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding-top: 40px;
+    color: #f2f2f3;
+  }
+  
+  .color {
+    color: #8585ad;
+  }
+  
+  .imageContainer {
+    position: relative;
+    padding-top: 100px;
+    height: 120px;
+    width: 120px;
+  }
+
+  .header {
+    display: flex;
+    align-items: baseline;
+    padding-top: 5px;
+    padding-left: 650px;
+  }
+
+  .button {
+    background: transparent;
+    justify-content: flex-end;
+    padding-right: 40px;
+    cursor: pointer;
+    transition: opacity 0.4s ease-out;
+    outline: none;
+    border: none;
+    float: right;
+  }
+
+  .button:hover {
+    opacity: 0.6;
+  }
+
+  .bottomContainer {
+    position: relative;    
+    padding-top: 130px;
+    align-items: center;
+  }
+  
+  .bottom1 {
+    display: flex;
+    position: relative;
+    padding-bottom: 10px;
+    justify-content: center;
+  }
+
+  .rotate {
+    display: block;
+    margin: auto;
+    width: 50%;
+    padding-top: 60px;
+    animation: rotation 4s infinite linear;
+  }
+  
+  .rotate1 {
+    justify-content: center;
+    padding-left: 10px;
+    width: 80%;
+    margin: -70px auto;
+  } 
+  
+  .checkmark {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    margin: auto;
+    padding-bottom: 10px;
+    visibility: visible;
+  }
