@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-ingredients.module.css';
 import { Ingredient, IngredientsCount } from '../../utils/types';
-import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import IngredienParams from '../ingredient-params/Ingredient-params';
+import IngredientParams from '../ingredient-params/Ingredient-params';
+import { useModal } from '../modal/useModal';
+import uuid from 'react-uuid';
 
 interface RootState {
     BurgerIngredients: any,
@@ -19,22 +20,8 @@ export const BurgerIngredients = () => {
     const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector((store: any) => store.ingredients);
     const { bunComponent, otherComponents } = useSelector((store: any) => store.components);
 
-    const [showModal, setShow] = useState(<></>);
     const [currentTab, setCurrentTab] = useState("bun");
-
-
-
-    function showDialog(id: string) {
-        setShow(
-            <Modal onClose={hideDialog} key={id}>
-                <IngredientDetails dataId={id} data={ingredients} />
-            </Modal> as JSX.Element
-        );
-    }
-
-    function hideDialog() {
-        setShow(<></>);
-    }
+    const [modal, showModal] = useModal();
 
     const setCurrent = (tab: any) => {
         setCurrentTab(tab);
@@ -94,30 +81,22 @@ export const BurgerIngredients = () => {
                 <Tab value="main" active={currentTab === 'main'} onClick={setCurrent}>Начинки</Tab>
                 <Tab value="sauce" active={currentTab === 'sauce'} onClick={setCurrent}>Соусы</Tab>
             </div>
-            {showModal}
+            {modal}
             <div className={css.scrollzone} onScroll={setActiveTab}>
                 {
-                    arrIngr.map((val, index) => (
-                        <div key={index}>
+                    arrIngr.map((val) => (
+                        <div key={uuid()}>
                             <h2 id={val["typeId"]} className="text text_type_main-medium pt-10 pl-5">{val["type"]}</h2>
                             <ul className={`${css.ingredientsGroupList} pt-6 pb-8 pl-4`}>
                                 {
                                     val["arr"]?.map((item: Ingredient) => (
-                                        <div className={css.product} data-id={item._id} key={item._id} onClick={() => { showDialog(item._id) }}>
-                                            <IngredienParams ingr={{
-                                                _id: item._id,
-                                                name: item.name,
-                                                type: item.type,
-                                                proteins: item.proteins,
-                                                fat: item.fat,
-                                                carbohydrates: item.carbohydrates,
-                                                calories: item.calories,
-                                                price: item.price,
-                                                image: item.image,
-                                                image_mobile: item.image_mobile,
-                                                image_large: item.image_large,
-                                                __v: item.__v,
-                                            }} ingredientsCounter={ingredientsCounter} />
+                                        <div
+                                            className={css.product}
+                                            data-id={item._id}
+                                            key={uuid()}
+                                            onClick={() => { showModal({ id: item._id, children: <IngredientDetails dataId={item._id} data={val["arr"]} /> }) }}
+                                        >
+                                            <IngredientParams ingr={item} ingredientsCounter={ingredientsCounter} />
                                         </div>
                                     ))
                                 }

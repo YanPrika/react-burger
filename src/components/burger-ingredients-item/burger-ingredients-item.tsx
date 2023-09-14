@@ -3,7 +3,7 @@ import { mergeRefs } from "react-merge-refs";
 import { useDrag, useDrop } from "react-dnd";
 import { IngrType, Ingredient } from "../../utils/types";
 import { useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../components/hooks/hooks";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { componentsSlice } from "../../services/reducers/components";
 
@@ -12,15 +12,14 @@ export default function BurgerIngredientsItem({ component, type = undefined }: {
   const componentDrag = component
   const dispatch = useDispatch();
   const isLocked = type === "top" || type === "bottom" ? true : false;
-  const nameComponent = useMemo(
-    function () {
-      if (type === "top") {
-        return component.name + " (верх)";
-      } else if (type === "bottom") {
-        return component.name + " (низ)";
-      }
-      return component.name;
-    },
+  const nameComponent = useMemo(() => {
+    if (type === "top") {
+      return component.name + " (верх)";
+    } else if (type === "bottom") {
+      return component.name + " (низ)";
+    }
+    return component.name;
+  },
     [component, type]
   );
 

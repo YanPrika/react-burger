@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Ingredient } from "../../utils/types";
+import uuid from 'react-uuid';
 
 interface ComponentsState {
   componentId: number;
@@ -22,25 +23,25 @@ export const componentsSlice = createSlice({
       if (component.type === "bun") {
         if (!state.bunComponent || (state.bunComponent && component._id !== state.bunComponent._id)
         ) {
-          state.bunComponent = component;
+          state.bunComponent = { ...component, key: uuid() };
         } else { return; }
       } else {
         component.componentId = state.componentId;
-        state.otherComponents = [...state.otherComponents, component];
+        state.otherComponents = [...state.otherComponents, { ...component, key: uuid() }];
         state.componentId += 1;
       }
     },
     deleteComponent: (state, action) => {
       state.otherComponents = state.otherComponents.filter((item) => {
-        return item._id !== action.payload._id;
+        return item.componentId !== action.payload.componentId;
       });
     },
     moveComponent: (state, action) => {
-      if (action.payload.componentDrop._id === action.payload.componentDrag._id) {
+      if (action.payload.componentDrop.componentId === action.payload.componentDrag.componentId) {
         return;
       } else {
-        const indexDragItem = state.otherComponents.findIndex((item) => item._id === action.payload.componentDrag._id);
-        state.otherComponents = state.otherComponents.filter((item) => { return item._id !== action.payload.componentDrop._id; });
+        const indexDragItem = state.otherComponents.findIndex((item) => item.componentId === action.payload.componentDrag.componentId);
+        state.otherComponents = state.otherComponents.filter((item) => { return item.componentId !== action.payload.componentDrop.componentId; });
         state.otherComponents.splice(indexDragItem, 0, action.payload.componentDrop);
       }
     },

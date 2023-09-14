@@ -1,5 +1,3 @@
-import { type } from "os";
-import { Interface } from "readline";
 import { store } from "../services/store";
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -20,6 +18,7 @@ export type Ingredient = {
     image_large: string;
     __v: number;
     componentId?: number;
+    key: string
   };
 
 export type IngrType = 'top'|'bottom'|undefined;
