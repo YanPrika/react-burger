@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import css from './ingredient-details.module.css';
-import { Ingredient } from '../../utils/index';
+import { Ingredient } from '../../utils/types';
 
 const IngredientDetails: FC<{ dataId: string, data: Ingredient[] }> = ({  dataId, data }) => {
 

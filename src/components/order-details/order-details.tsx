@@ -2,11 +2,15 @@ import React from "react";
 import css from "./order-details.module.css";
 import vector from "../../images/vector.svg";
 import checkmark from "../../images/checkmark.svg";
+import { useSelector } from "react-redux";
 
-const OrderDetails = ({ order }: { order: string }) => {
+const OrderDetails = () => {
+
+    const { orderNumber, orderRequest, orderFailed } = useSelector((store: any) => store.order);
+
     return (
         <div className={css.container} >
-            <p className="text text_type_digits-large pb-5">65464</p>
+            <p className="text text_type_digits-large pb-5">{orderNumber}</p>
             <p className="text text_type_main-default pb-5">Идентификатор заказа</p>
             <div className={css.imageContainer}>
                 <img src={vector} className={css.rotate1} alt="Заказ принят" />

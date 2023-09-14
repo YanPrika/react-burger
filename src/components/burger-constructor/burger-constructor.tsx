@@ -1,18 +1,61 @@
-import React, { useState, useEffect, MouseEventHandler } from 'react';
-import { Button, ConstructorElement, CurrencyIcon, Counter, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, { useState, useMemo } from 'react';
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-constructor.module.css';
-import { Ingredient } from '../../utils/index';
 import Modal from '../modal/modal';
+import { useDispatch } from "react-redux";
+import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item';
 import OrderDetails from '../order-details/order-details';
+import { componentsSlice } from "../../services/reducers/components";
+import { useSelector, useDispatch as useCustomDispatch } from '../hooks/hooks';
+import { useDrop } from 'react-dnd';
+import { createOrder } from '../../services/actions/orders';
+import { Ingredient } from '../../utils/types';
 
-export const BurgerConstructor = ({ data }: { data: Ingredient[] }) => {
+export const BurgerConstructor = () => {
 
+    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector((store: any) => store.ingredients);
+
+    const customDispatch = useCustomDispatch();
+    const dispatch = useDispatch<any>();
     const [showModal, setShow] = useState(<></>);
 
-    function showDialog() {
+    const { bunComponent, otherComponents } = useSelector(
+        (store:any) => store.components
+    );
+
+    const { getComponent, clearConstructor } = componentsSlice.actions;
+    const [{ isHover }, dropIngredient] = useDrop({
+        accept: "ingredient",
+        collect: (monitor) => ({
+            isHover: monitor.isOver(),
+        }),
+        drop(ingredient) {
+            customDispatch(getComponent(ingredient));
+        },
+    });
+
+    const orderAmount = useMemo(() => {
+        return (
+            (bunComponent ? bunComponent.price * 2 : 0) +
+            otherComponents.reduce(function (previousValue:number, item:Ingredient) {
+                return previousValue + item.price;
+            }, 0)
+        );
+    }, [bunComponent, otherComponents]);
+    
+    const placeOrder = () => {
+        showDialog();
+        dispatch(createOrder([...otherComponents, bunComponent]))
+          .unwrap()
+          .then(() => {            
+            dispatch(clearConstructor());
+          });
+      };
+
+    function showDialog() {        
         setShow(
             <Modal onClose={hideDialog}>
-                <OrderDetails order={''} />
+                <OrderDetails />
             </Modal> as JSX.Element
         );
     }
@@ -21,73 +64,76 @@ export const BurgerConstructor = ({ data }: { data: Ingredient[] }) => {
         setShow(<></>);
     }
 
-    const orderSumm = data?.reduce((a, b) => (a + b.price), 0);
-
-    const bunArray = data?.filter((item) => item.type === 'bun');
-    const mainArray = data?.filter((item) => item.type === 'main');
-    const sauceArray = data?.filter((item) => item.type === 'sauce');
-
-    const allInngrArray = mainArray?.concat(sauceArray !== undefined ? sauceArray : []);
-
-    const bunItem = bunArray?.filter((item) => item._id === '643d69a5c3f7b9001cfa093c');
+    const orderSumm = ingredients?.reduce((a: number, b: { price: number }) => (a + b.price), 0);
 
     return (
-        <div className={`${css.column} pt-20 pl-10`}>
+        <div className={`${css.column} pt-25 pl-10`}>
             <div >
-                <div className={css.rowMiddleIngrTopBottom}>
-                    {bunItem?.map((item) => (
-                        <div className={css.product} key={item._id}>
-                            <ConstructorElement
-                                text={`${item.name} (верх)`}
-                                thumbnail={item.image}
-                                price={item.price}
-                                type="top"
-                                isLocked={(item.type === 'bun') ? true : false}
-                                extraClass={undefined}
-                                handleClose={undefined}
-                            />
+                <section
+                    className={`${css.section_container}`}
+                    ref={dropIngredient}
+                >
+                    {
+                        !bunComponent && otherComponents.length === 0 && (
+                            <div className={css.instruction}>
+                                <p className="text text_type_main-default pt-4">
+                                    Перетащите в это поле ингридиенты из меню слева.
+                                </p>
+                            </div>
+                        )
+                    }
+                    {
+                        (bunComponent || otherComponents.length > 0) && (
+                            <div
+                                className={`${css.burger_components} ${isHover ? css.hover : ""
+                                    } `}
+                            >
+                                {
+                                    bunComponent && (
+                                        <div className={`${css.components_container} pl-4 pr-4`}>
+                                            <BurgerIngredientsItem component={bunComponent} type="top" />
+                                        </div>
+                                    )
+                                }
+                                {
+                                    otherComponents.length !== 0 && (
+                                        <div className={` ${css.components_container_scroll} pl-4 pr-2`}>
+                                            {
+                                                otherComponents.map((component:Ingredient, index:number) => {
+                                                    return (
+                                                        <BurgerIngredientsItem
+                                                            component={component}
+                                                            key={index}
+                                                        />
+                                                    );
+                                                })
+                                            }
+                                        </div>
+                                    )
+                                }
+                                {
+                                    bunComponent && (
+                                        <div className={`${css.components_container} pl-4 pr-4`}>
+                                            <BurgerIngredientsItem component={bunComponent} type="bottom" />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        )
+                    }
+                    <div className={css.total}>
+                        <p className="text text_type_digits-medium">{orderAmount}</p>
+                        <CurrencyIcon type="primary" />
+                        <div onClick={(orderAmount>0) ? placeOrder : () => {}}>
+                            <Button htmlType="button" type="primary" size="medium" extraClass="ml-2" disabled={(orderAmount>0) ? false : true}>
+                                Оформить заказ
+                            </Button>
                         </div>
-                    ))}
-                </div>
-                <div className={css.scrollzone}>
-                    {allInngrArray?.map((item) => (
-                        <div className={css.rowMiddleIngr} key={item._id}>
-                            <DragIcon type="primary" />
-                            <ConstructorElement
-                                type={undefined}
-                                text={item.name}
-                                price={item.price}
-                                thumbnail={item.image}
-                            />
-                        </div>
-                    ))}
-                </div>
-                <div className={css.rowMiddleIngrTopBottom}>
-                    {bunItem?.map((item) => (
-                        <ConstructorElement
-                            key={item._id}
-                            text={`${item.name} (низ)`}
-                            thumbnail={item.image}
-                            price={item.price}
-                            type="bottom"
-                            isLocked={(item.type === 'bun') ? true : false}
-                            extraClass={undefined}
-                            handleClose={undefined}
-                        />
-                    ))}
-                </div>
-                <div className={css.total}>
-                    <p className="text text_type_digits-medium">{orderSumm}</p>
-                    <CurrencyIcon type="primary" />
-                    <div onClick={showDialog}>
-                        <Button htmlType="button" type="primary" size="medium" extraClass="ml-2">
-                            Оформить заказ
-                        </Button>
+                        {showModal}
                     </div>
-                    {showModal}
-                </div>
-            </div>
-        </div>
+                </section>
+            </div >
+        </div >
     )
 }
 
