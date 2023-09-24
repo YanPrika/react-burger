@@ -1,3 +1,9 @@
+body {
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 .main_rect {
     /*border: 8px double yellow;*/
     display: flex;

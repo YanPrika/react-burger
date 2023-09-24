@@ -10,7 +10,7 @@ interface IModal {
   title?: string;
 }
 
-const Modal = ({ onClose,  title, children }: IModal) => {
+const Modal = ({ onClose, children }: IModal) => {
   const reactModals = document.getElementById('react-modals') as HTMLElement; 
   
   useEffect(() => {
