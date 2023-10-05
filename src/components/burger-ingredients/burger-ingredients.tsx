@@ -3,25 +3,16 @@ import { useSelector } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-ingredients.module.css';
 import { Ingredient, IngredientsCount } from '../../utils/types';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import IngredientParams from '../ingredient-params/Ingredient-params';
-import { useModal } from '../modal/useModal';
 import uuid from 'react-uuid';
-
-interface RootState {
-    BurgerIngredients: any,
-    burgerReducer: any,
-    tabSwitchReducer: any,
-    burgerConstructorReducer: any
-}
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerIngredients = () => {
-
-    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector((store: any) => store.ingredients);
+    const { ingredients } = useSelector((store: any) => store.ingredients);
     const { bunComponent, otherComponents } = useSelector((store: any) => store.components);
-
     const [currentTab, setCurrentTab] = useState("bun");
-    const [modal, showModal] = useModal();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const setCurrent = (tab: any) => {
         setCurrentTab(tab);
@@ -81,7 +72,6 @@ export const BurgerIngredients = () => {
                 <Tab value="main" active={currentTab === 'main'} onClick={setCurrent}>Начинки</Tab>
                 <Tab value="sauce" active={currentTab === 'sauce'} onClick={setCurrent}>Соусы</Tab>
             </div>
-            {modal}
             <div className={css.scrollzone} onScroll={setActiveTab}>
                 {
                     arrIngr.map((val) => (
@@ -94,7 +84,7 @@ export const BurgerIngredients = () => {
                                             className={css.product}
                                             data-id={item._id}
                                             key={uuid()}
-                                            onClick={() => { showModal({ id: item._id, children: <IngredientDetails dataId={item._id} data={val["arr"]} /> }) }}
+                                            onClick={() => { navigate(`/ingredients/${item._id}`, { state: { background: location } }); }}
                                         >
                                             <IngredientParams ingr={item} ingredientsCounter={ingredientsCounter} />
                                         </div>
@@ -104,7 +94,7 @@ export const BurgerIngredients = () => {
                         </div>
                     ))
                 }
-            </div>
+            </div >
         </div >
     );
 }

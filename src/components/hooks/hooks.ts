@@ -1,6 +1,27 @@
+import React, { useState } from "react";
 import { TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selectorHook } from 'react-redux';
-import { AppDispatch, RootState } from '../../utils/types';
+import { AppDispatch, RootState, TFormValues } from '../../utils/types';
 
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
 export const useDispatch: () => AppDispatch = dispatchHook
+
+export function useFormWithValidation() {
+    const [values, setValues] = useState<TFormValues>({});
+    const [isValidForm, setIsValidForm] = useState(false);
+  
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const target = event.target;
+      const name = target.name;
+      const value = target.value;
+      setValues({ ...values, [name]: value });
+      setIsValidForm((target.closest("form") as HTMLFormElement).checkValidity());
+    };
+  
+    return {
+      values,
+      setValues,
+      handleChange,
+      isValidForm,
+    };
+}

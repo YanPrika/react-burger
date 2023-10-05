@@ -27,3 +27,47 @@
   justify-content: flex-end;
   align-items: center;
 }
+
+.listElement {
+  margin: 16px 0;
+  width: fit-content;
+  min-height: fit-content;
+  display: flex;
+  flex-flow: row;
+}
+
+.nav {
+  width: fit-content;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link_active {
+  color: rgba(242, 242, 243, 1);
+}
+
+.link_active svg {
+  fill: white;
+}
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 8px;
+  text-decoration: none;
+  align-content: center;
+  color: #F2F2F3;
+}
