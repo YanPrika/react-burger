@@ -15,6 +15,7 @@ import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import { getIngredients } from '../../services/actions/ingredients';
 import { useDispatch } from '../../components/hooks/hooks';
 import Modal from '../modal/modal';
+import { ROUTE_FORGOT_PASSWORD, ROUTE_INGREDIENTS, ROUTE_LOGIN, ROUTE_MAIN, ROUTE_PROFILE, ROUTE_PROFILE_FORM, ROUTE_REGISTER, ROUTE_RESET_PASSWORD } from '../../utils/const';
 
 export const App = () => {
   const location = useLocation();
@@ -34,9 +35,9 @@ export const App = () => {
     <div className={css.main_rect}>
       <AppHeader />
       <Routes location={background || location}>
-        <Route path="/" element={<Main />} />
+        <Route path={ROUTE_MAIN} element={<Main />} />
         <Route
-          path="/login"
+          path={ROUTE_LOGIN}
           element={
             <ProtectedRouteElement
               onlyUnAuth={false}
@@ -45,7 +46,7 @@ export const App = () => {
           }
         />
         <Route
-          path="/profile"
+          path={ROUTE_PROFILE}
           element={
             <ProtectedRouteElement
               onlyUnAuth={true}
@@ -53,10 +54,10 @@ export const App = () => {
             />
           }
         />
-        <Route path="/profile-form" element={<ProfileForm />} />
-        <Route path="/register" element={<Register />} />
+        <Route path={ROUTE_PROFILE_FORM} element={<ProfileForm />} />
+        <Route path={ROUTE_REGISTER} element={<Register />} />
         <Route
-          path="/forgot-password"
+          path={ROUTE_FORGOT_PASSWORD}
           element={
             <ProtectedRouteElement
               onlyUnAuth={false}
@@ -65,7 +66,7 @@ export const App = () => {
           }
         />
         <Route
-          path="/reset-password"
+          path={ROUTE_RESET_PASSWORD}
           element={
             <ProtectedRouteElement
               onlyUnAuth={false}
@@ -74,7 +75,7 @@ export const App = () => {
           }
         />
         <Route
-          path={"/ingredients/:ingredientId"}
+          path={`${ROUTE_INGREDIENTS}/:ingredientId`}
           element={<IngredientPage />}
         />
         <Route path="*" element={<Page404 />} />
@@ -83,7 +84,7 @@ export const App = () => {
         background && (
           <Routes>
             <Route
-              path={"/ingredients/:ingredientId"}
+              path={`${ROUTE_INGREDIENTS}/:ingredientId`}
               element={
                 <Modal title={"Детали ингредиента"} onClose={handleModalClose}>
                   <IngredientPage />

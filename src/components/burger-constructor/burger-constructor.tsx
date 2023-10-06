@@ -47,12 +47,10 @@ export const BurgerConstructor = () => {
     const placeOrder = () => {
         const isTokens = checkToken();
         const isRefreshTokens = checkRefreshToken();
-        if (!isTokens && !isRefreshTokens) {navigate(ROUTE_LOGIN);
-        }
-        else
-        {
-            if (orderAmount > 0)
-            {
+        if (orderAmount > 0) {
+            if (!isTokens && !isRefreshTokens) {
+                navigate(ROUTE_LOGIN);
+            } else {
                 showModal({ id: uuid(), children: <OrderDetails /> })
                 dispatch(createOrder([...otherComponents, bunComponent]))
                     .unwrap()
@@ -61,7 +59,7 @@ export const BurgerConstructor = () => {
                     });
             }
         }
-    };
+    };    
 
     return (
         <div className={`${css.column} pt-25 pl-10`}>
