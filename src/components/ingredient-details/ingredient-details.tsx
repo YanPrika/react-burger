@@ -3,7 +3,7 @@ import css from './ingredient-details.module.css';
 import { Ingredient } from '../../utils/types';
 import uuid from 'react-uuid';
 
-const IngredientDetails: FC<{ dataId: string, data: Ingredient[] }> = ({  dataId, data }) => {
+const IngredientDetails: FC<{ dataId: string | undefined, data: Ingredient[] }> = ({  dataId, data }) => {
 
     const bunItem = data?.filter((item) => item._id === dataId);
 

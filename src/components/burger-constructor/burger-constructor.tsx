@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-constructor.module.css';
 import { useModal } from '../modal/useModal';
@@ -10,12 +10,14 @@ import { useDrop } from 'react-dnd';
 import { createOrder } from '../../services/actions/orders';
 import { Ingredient } from '../../utils/types';
 import uuid from "react-uuid";
+import { checkRefreshToken, checkToken } from '../../utils/api';
+import { ROUTE_LOGIN } from '../../utils/const';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor = () => {
 
-    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector((store: any) => store.ingredients);
-
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [modal, showModal] = useModal();
 
     const { bunComponent, otherComponents } = useSelector(
@@ -43,15 +45,21 @@ export const BurgerConstructor = () => {
     }, [bunComponent, otherComponents]);
 
     const placeOrder = () => {
+        const isTokens = checkToken();
+        const isRefreshTokens = checkRefreshToken();
         if (orderAmount > 0) {
-            showModal({ id: uuid(), children: <OrderDetails /> })
-            dispatch(createOrder([...otherComponents, bunComponent]))
-                .unwrap()
-                .then(() => {
-                    dispatch(clearConstructor());
-                });
+            if (!isTokens && !isRefreshTokens) {
+                navigate(ROUTE_LOGIN);
+            } else {
+                showModal({ id: uuid(), children: <OrderDetails /> })
+                dispatch(createOrder([...otherComponents, bunComponent]))
+                    .unwrap()
+                    .then(() => {
+                        dispatch(clearConstructor());
+                    });
+            }
         }
-    };
+    };    
 
     return (
         <div className={`${css.column} pt-25 pl-10`}>

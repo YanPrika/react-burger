@@ -39,4 +39,29 @@ export type CreateOrder = {
   order: { number: number };
 };
 
+export type TResWithoutData = {
+  success: boolean;
+  message: string;
+};
+
+export type TUser = {
+  user: { email: string; name: string };
+};
+
+export type TUserData = {
+  user: TUser;
+};
+
+export type TToken = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+};
+
 export type IngredientsCount = { [name: string]: number };
+
+export type TFormValues = { [name: string]: string };
+
+export type TUserWithToken = TUserData & TToken;
+
+export type THandleSubmit = (evt: React.SyntheticEvent<HTMLElement>) => void;
