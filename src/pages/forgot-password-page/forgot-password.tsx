@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { FC, FormEvent } from "react";
 import css from "./forgot-password.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ROUTE_RESET_PASSWORD } from "../../utils/const";
-import { useFormWithValidation } from "../../components/hooks/hooks";
+import { useFormWithValidation } from "../../hooks/hooks";
 import LoginForm from "../../components/login-form/login-form";
 import { useAuthProvide } from "../../utils/authorization";
 
@@ -13,7 +13,7 @@ const ForgotPassword: FC = () => {
   const { values, handleChange, isValidForm } = useFormWithValidation();
   const { forgotPassword } = useAuthProvide();
 
-  const handleSubmit = async (evt: React.SyntheticEvent<HTMLElement>) => {
+  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const requestresult = await forgotPassword(values);
     if (requestresult.success) {

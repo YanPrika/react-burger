@@ -1,11 +1,11 @@
 import css from "./login.module.css";
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch } from '../../components/hooks/hooks';
-import { useSelector } from "react-redux";
+import { useDispatch } from "../../hooks/hooks";
+import { useSelector } from "../../hooks/hooks";
 import LoginForm from "../../components/login-form/login-form";
 import { EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useFormWithValidation } from "../../components/hooks/hooks";
+import { useFormWithValidation } from "../../hooks/hooks";
 import { onLogin } from "../../services/actions/users" 
 
 const LoginPage = () => {
@@ -16,7 +16,7 @@ const LoginPage = () => {
   const location = useLocation();
   const { onLoginFailed, onLoginRequest } = useSelector((store:any) => store.user);
 
-  const handleSubmit = (evt: React.SyntheticEvent<HTMLElement>) => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(onLogin(values))
       .unwrap()
@@ -29,7 +29,7 @@ const LoginPage = () => {
       });
   };
 
-  const handleChangeInput = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
     handleChange(evt);
     if (requestFailedMessage) {
       setRequestFailedMessage(null);

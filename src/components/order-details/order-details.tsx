@@ -2,7 +2,7 @@ import React from "react";
 import css from "./order-details.module.css";
 import vector from "../../images/vector.svg";
 import checkmark from "../../images/checkmark.svg";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../hooks/hooks";
 
 const OrderDetails = () => {
 

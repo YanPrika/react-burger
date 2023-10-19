@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import css from './ingredient-details.module.css';
 import { Ingredient } from '../../utils/types';
-import uuid from 'react-uuid';
 
 const IngredientDetails: FC<{ dataId: string | undefined, data: Ingredient[] }> = ({  dataId, data }) => {
 
@@ -9,8 +8,8 @@ const IngredientDetails: FC<{ dataId: string | undefined, data: Ingredient[] }> 
 
     return (
         <div>
-            {bunItem?.map((item) => (
-                <div key={uuid()}>
+            {bunItem?.map((item, index:number) => (
+                <div key={index}>
                     
                     <div className={css.header} >
                         <h3 className={`text text_type_main-large ${css.title}`}>Детали ингредиента</h3>
@@ -32,7 +31,7 @@ const IngredientDetails: FC<{ dataId: string | undefined, data: Ingredient[] }> 
                         </div>
                         <div className={css['detail-item']}>
                             <div className="text text_type_main-default text_color_inactive mb-2">Углеводы, г</div>
-                            <div className="text-center text text_type_digits-default text_color_inactive" key={uuid()}>{item.carbohydrates}</div>
+                            <div className="text-center text text_type_digits-default text_color_inactive" key={item._id}>{item.carbohydrates}</div>
                         </div>
                     </div>
                 </div>

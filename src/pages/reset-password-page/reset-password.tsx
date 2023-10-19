@@ -1,12 +1,12 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, FormEvent } from "react";
 import css from "./reset-password.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginForm from "../../components/login-form/login-form";
-import { useFormWithValidation } from "../../components/hooks/hooks";
+import { useFormWithValidation } from "../../hooks/hooks";
 import { ROUTE_MAIN } from "../../utils/const";
 import { useAuthProvide } from "../../utils/authorization";
-import { useDispatch } from "../../components/hooks/hooks";
+import { useDispatch } from "../../hooks/hooks";
 import { onLogin } from "../../services/actions/users";
 
 const ResetPassword: FC = () => {
@@ -19,7 +19,7 @@ const ResetPassword: FC = () => {
   const { resetPassword } = useAuthProvide();
   const [requestFailedMessage, setRequestFailedMessage] = useState(null);
 
-  const handleSubmit = (evt: React.SyntheticEvent<HTMLElement>) => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     resetPassword(values)
       .then(() => {

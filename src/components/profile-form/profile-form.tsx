@@ -1,8 +1,8 @@
-import { FC, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "../../components/hooks/hooks";
+import { FC, useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { useSelector } from "../../hooks/hooks";
+import { useDispatch } from "../../hooks/hooks";
 import { Input, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import { useFormWithValidation } from "../hooks/hooks";
+import { useFormWithValidation } from "../../hooks/hooks";
 import LoginForm from "../login-form/login-form";
 import { editUser } from "../../services/actions/users";
 
@@ -15,7 +15,7 @@ const ProfileForm: FC = () => {
   const { user } = useSelector((store: any) => store.user);
 
 
-  function handleSubmit(evt: React.SyntheticEvent<HTMLElement>) {
+  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     dispatch(editUser(values))
       .unwrap()
@@ -27,7 +27,7 @@ const ProfileForm: FC = () => {
       });
   }
 
-  const handleChangeInput = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
     handleChange(evt);
     if (requestFailedMessage) {
       setRequestFailedMessage(null);
