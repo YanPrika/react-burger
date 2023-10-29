@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import { store } from "../services/store";
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -64,4 +65,4 @@ export type TFormValues = { [name: string]: string };
 
 export type TUserWithToken = TUserData & TToken;
 
-export type THandleSubmit = (evt: React.SyntheticEvent<HTMLElement>) => void;
+export type THandleSubmit = (evt: FormEvent<HTMLFormElement>) => void;

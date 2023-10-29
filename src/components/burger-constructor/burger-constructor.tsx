@@ -5,7 +5,7 @@ import { useModal } from '../modal/useModal';
 import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item';
 import OrderDetails from '../order-details/order-details';
 import { componentsSlice } from "../../services/reducers/components";
-import { useSelector, useDispatch } from '../hooks/hooks';
+import { useSelector, useDispatch } from '../../hooks/hooks';
 import { useDrop } from 'react-dnd';
 import { createOrder } from '../../services/actions/orders';
 import { Ingredient } from '../../utils/types';

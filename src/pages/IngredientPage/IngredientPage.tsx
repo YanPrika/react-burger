@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import { useParams } from 'react-router-dom';
 

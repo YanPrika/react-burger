@@ -1,10 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/hooks';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import css from './burger-ingredients.module.css';
 import { Ingredient, IngredientsCount } from '../../utils/types';
 import IngredientParams from '../ingredient-params/Ingredient-params';
-import uuid from 'react-uuid';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerIngredients = () => {
@@ -74,8 +73,8 @@ export const BurgerIngredients = () => {
             </div>
             <div className={css.scrollzone} onScroll={setActiveTab}>
                 {
-                    arrIngr.map((val) => (
-                        <div key={uuid()}>
+                    arrIngr.map((val, index:number) => (
+                        <div key={index}>
                             <h2 id={val["typeId"]} className="text text_type_main-medium pt-10 pl-5">{val["type"]}</h2>
                             <ul className={`${css.ingredientsGroupList} pt-6 pb-8 pl-4`}>
                                 {
@@ -83,7 +82,7 @@ export const BurgerIngredients = () => {
                                         <div
                                             className={css.product}
                                             data-id={item._id}
-                                            key={uuid()}
+                                            key={item._id}
                                             onClick={() => { navigate(`/ingredients/${item._id}`, { state: { background: location } }); }}
                                         >
                                             <IngredientParams ingr={item} ingredientsCounter={ingredientsCounter} />

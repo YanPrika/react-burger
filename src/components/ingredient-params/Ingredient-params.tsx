@@ -4,8 +4,8 @@ import { Ingredient, IngredientsCount } from '../../utils/types';
 import { useDrag } from 'react-dnd';
 
 type propsIngr = {
-    ingr: Ingredient
-    , ingredientsCounter: IngredientsCount
+    ingr: Ingredient,
+    ingredientsCounter: IngredientsCount
 }
 
 export default function IngredienParams({ ingr, ingredientsCounter }: propsIngr) {

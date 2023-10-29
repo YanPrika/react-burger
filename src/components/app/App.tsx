@@ -13,7 +13,7 @@ import ResetPassword from '../../pages/reset-password-page/reset-password';
 import ProfileForm from '../profile-form/profile-form';
 import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import { getIngredients } from '../../services/actions/ingredients';
-import { useDispatch } from '../../components/hooks/hooks';
+import { useDispatch } from '../../hooks/hooks';
 import Modal from '../modal/modal';
 import { ROUTE_FORGOT_PASSWORD, ROUTE_INGREDIENTS, ROUTE_LOGIN, ROUTE_MAIN, ROUTE_PROFILE, ROUTE_PROFILE_FORM, ROUTE_REGISTER, ROUTE_RESET_PASSWORD } from '../../utils/const';
 

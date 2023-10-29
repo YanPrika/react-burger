@@ -1,10 +1,10 @@
-import {FC, useState } from "react";
+import {ChangeEvent, FC, FormEvent, useState } from "react";
 import css from "./register.module.css";
 import { ROUTE_MAIN } from "../../utils/const";
 import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "../../components/login-form/login-form";
 import { Input, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useFormWithValidation } from "../../components/hooks/hooks";
+import { useDispatch, useFormWithValidation } from "../../hooks/hooks";
 import { onRegister } from "../../services/actions/users";
 
 const Register: FC = () => {
@@ -13,7 +13,7 @@ const Register: FC = () => {
   const { values, handleChange, isValidForm } = useFormWithValidation();
   const [requestFailedMessage, setRequestFailedMessage] = useState(null);
 
-  function handleSubmit(evt: React.SyntheticEvent<HTMLElement>) {
+  function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     dispatch(onRegister(values))
       .unwrap()
@@ -25,7 +25,7 @@ const Register: FC = () => {
       });
   }
 
-  const handleChangeInput = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
     handleChange(evt);
     if (requestFailedMessage) {
       setRequestFailedMessage(null);

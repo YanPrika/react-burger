@@ -3,7 +3,7 @@ import css from "./profile.module.css";
 import ProfileForm from "../../components/profile-form/profile-form";
 import { ROUTE_PROFILE, ROUTE_LOGIN } from "../../utils/const";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from '../../components/hooks/hooks';
+import { useDispatch } from '../../hooks/hooks';
 import { onLogOut } from "../../services/actions/users";
 import { userSlice } from "../../services/reducers/users";
 

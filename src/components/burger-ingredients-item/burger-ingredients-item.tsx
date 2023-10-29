@@ -3,7 +3,7 @@ import { mergeRefs } from "react-merge-refs";
 import { useDrag, useDrop } from "react-dnd";
 import { IngrType, Ingredient } from "../../utils/types";
 import { useMemo } from "react";
-import { useDispatch } from "../../components/hooks/hooks";
+import { useDispatch } from "../../hooks/hooks";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { componentsSlice } from "../../services/reducers/components";
 
