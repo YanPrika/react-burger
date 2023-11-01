@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { ingredientsSlice } from "./ingredients";
 import { componentsSlice } from "./components";
 import { selectedIngredientSlice } from "./selectedIngredient";
+import { orderFeedReducer } from "./orderFeed";
 import { orderSlice } from "./order";
 import { userSlice } from "./users";
 
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
     selectedIngredient: selectedIngredientSlice.reducer,
     order: orderSlice.reducer,
     user: userSlice.reducer,
+    orderFeed: orderFeedReducer
 });

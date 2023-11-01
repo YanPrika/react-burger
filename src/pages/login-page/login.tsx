@@ -14,7 +14,7 @@ const LoginPage = () => {
   const [requestFailedMessage, setRequestFailedMessage] = useState(null);
   const dispatch = useDispatch();
   const location = useLocation();
-  const { onLoginFailed, onLoginRequest } = useSelector((store:any) => store.user);
+  const { onLoginFailed, onLoginRequest } = useSelector((store) => store.user);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
