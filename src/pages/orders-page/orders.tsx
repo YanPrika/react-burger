@@ -5,13 +5,15 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "../../hooks/hooks";
 import { TOrderInfo } from "../../utils/types";
 import { useDispatch } from "../../hooks/hooks";
-import { connect } from "../../services/actions/orderFeed";
+import { connect, wsClose } from "../../services/actions/orderFeed";
 import { WS_URL_ORDER_FEED } from "../../utils/const";
 import { WebsocketStatus } from "../../utils/types";
+import { getCookie } from "../../utils/api";
 
 export const Orders = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const accessToken = getCookie("token");
 
   const {
     orders,
@@ -24,6 +26,7 @@ export const Orders = () => {
     let ordersStatusDone: TOrderInfo[] | [] = [];
     let ordersStatusPending: TOrderInfo[] | [] = [];
     const ordersData: TOrderInfo[] = orders;
+    
 
     ordersData.forEach((order) => {
       if (order.status === "done" && ordersStatusDone.length <= 9) {
@@ -39,8 +42,11 @@ export const Orders = () => {
   }, [orders]);
 
   useEffect(() => {
-    dispatch(connect(WS_URL_ORDER_FEED));
-  }, [dispatch]);
+    dispatch(connect(`${WS_URL_ORDER_FEED}?token=${accessToken}`));
+    return () => {
+      dispatch(wsClose())
+    }
+  }, [dispatch, accessToken]);
 
   return (
     <main className={css.main_container}>

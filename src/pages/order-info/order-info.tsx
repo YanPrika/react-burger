@@ -4,7 +4,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "../../hooks/hooks";
 import OrderCardInfo from "../../components/order-card-info/order-card-info";
 import { TOrderInfo } from "../../utils/types";
-import { connect } from "../../services/actions/orderFeed";
+import { connect, wsClose } from "../../services/actions/orderFeed";
 import { WS_URL_ORDER_FEED, WS_URL_ORDER_HISTORY, ROUTE_PROFILE, ROUTE_ORDER } from "../../utils/const";
 import { WebsocketStatus } from "../../utils/types";
 import { getCookie } from "../../utils/api";
@@ -26,8 +26,11 @@ const OrderInfo = () => {
     } else {
       dispatch(connect(WS_URL_ORDER_FEED));
     }
+    return () => {
+      dispatch(wsClose())
+    }
   }, [dispatch, accessToken, location.pathname]);
-
+ 
   const orderInfo = useMemo(() => {
     if (orders.length) {
       const dataOrder = orders.find(function (item: TOrderInfo) {

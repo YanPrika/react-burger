@@ -3,6 +3,7 @@ import { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@reduxjs/
 import { Middleware } from "redux";
 import { RootState } from "../store";
 import { TOrderFeedActions } from "../actions/orderFeed";
+import { getCookie } from "../../utils/api";
 
 export type TwsActionTypes = {
   connect: ActionCreatorWithPayload<string>;
@@ -17,9 +18,10 @@ export type TwsActionTypes = {
 export const createSocketMiddleware = (
   wsActions: TwsActionTypes
 ): Middleware<{}, RootState> => {
-  return (store) => {
+  return (store) => {    
     let socket: WebSocket | null = null;
     let url = "";
+    const accessToken: string | undefined = getCookie("token");
     let isConnected = false;
     let reconnectTimer = 0;
 
@@ -37,7 +39,7 @@ export const createSocketMiddleware = (
 
       if (connect.match(action)) {
         url = action.payload;
-        socket = new WebSocket(url);
+        socket = new WebSocket(`${url}?token=${accessToken}`);
         isConnected = true;
         window.clearTimeout(reconnectTimer);
         reconnectTimer = 0;

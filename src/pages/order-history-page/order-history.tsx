@@ -7,23 +7,24 @@ import OrderCard from "../../components/order-card/order-card";
 import { TOrderInfo } from "../../utils/types";
 import { WS_URL_ORDER_HISTORY } from "../../utils/const";
 import { WebsocketStatus } from "../../utils/types";
-import { connect } from "../../services/actions/orderFeed";
-import { getCookie } from "../../utils/api";
+import { connect, wsClose } from "../../services/actions/orderFeed";
 import Menu from "../../components/menu/menu"
 
 export const OrderHistory = () => {
   const location = useLocation();
 
   const dispatch = useDispatch();
-  const accessToken = getCookie("token");
 
   const { orders, status: statusWS } = useSelector((store) => store.orderFeed);
 
   const reversOrders = [...orders].reverse();
 
   useEffect(() => {
-    dispatch(connect(`${WS_URL_ORDER_HISTORY}?token=${accessToken}`));
-  }, [dispatch, accessToken]);
+    dispatch(connect(`${WS_URL_ORDER_HISTORY}`));
+    return () => {
+      dispatch(wsClose())
+    }   
+  }, [dispatch]);  
 
   return (
     <>
