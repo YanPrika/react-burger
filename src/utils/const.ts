@@ -1,6 +1,9 @@
 export const URL = 'https://norma.nomoreparties.space/api';
+export const WS_URL_ORDER_FEED = "wss://norma.nomoreparties.space/orders/all"
+export const WS_URL_ORDER_HISTORY = "wss://norma.nomoreparties.space/orders"
 
 export const ROUTE_MAIN = '/'
+export const ROUTE_FEED = '/feed'
 export const ROUTE_ORDER = '/orders'
 export const ROUTE_PROFILE = '/profile'
 export const ROUTE_LOGIN = '/login'

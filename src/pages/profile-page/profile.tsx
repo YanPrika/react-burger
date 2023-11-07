@@ -1,9 +1,9 @@
 import React from 'react';
 import css from "./profile.module.css";
 import ProfileForm from "../../components/profile-form/profile-form";
-import { ROUTE_PROFILE, ROUTE_LOGIN } from "../../utils/const";
+import { ROUTE_PROFILE, ROUTE_LOGIN, ROUTE_ORDER } from "../../utils/const";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from '../../hooks/hooks';
+import { useDispatch } from "../../hooks/hooks";
 import { onLogOut } from "../../services/actions/users";
 import { userSlice } from "../../services/reducers/users";
 
@@ -39,7 +39,7 @@ const Profile = () => {
           </li>
           <li>
             <NavLink
-              to={`${ROUTE_PROFILE}/orders`}
+              to={`${ROUTE_PROFILE}${ROUTE_ORDER}`}
               className={({ isActive }) =>
                 isActive
                   ? `${css.link_active} text text_type_main-medium text_color_active`

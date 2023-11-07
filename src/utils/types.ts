@@ -19,6 +19,7 @@ export type Ingredient = {
     image_large: string;
     __v: number;
     componentId?: number;
+    count: number;
     key: string
   };
 
@@ -66,3 +67,31 @@ export type TFormValues = { [name: string]: string };
 export type TUserWithToken = TUserData & TToken;
 
 export type THandleSubmit = (evt: FormEvent<HTMLFormElement>) => void;
+
+export type TIngredientWithCount = Ingredient & {count: number}
+
+export type TOrderInfo = {
+  _id: string;
+  ingredients: string[];
+  status: 'done' | 'created' | 'pending'
+  name: string;
+  createdAt: Date;
+  updatedAt: string;
+  number: number
+};
+
+export type TOrderFeed = {
+  success: boolean;
+  orders: TOrderInfo[];
+  total: number;
+  totalToday: number
+}
+
+export type TOrderHistory = TOrderFeed
+
+export enum WebsocketStatus {
+  CONNECTING = 'CONNECTING',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE', 
+  ERROR = 'ERROR'
+}
