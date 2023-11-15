@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { onLogin, onRegister, onLogOut, getUser, editUser } from "../actions/users";
 import { TUser } from "../../utils/types";
 
-interface UserState {
+export interface UserState {
   user: TUser | null;
   onLoginRequest: boolean;
   onLoginFailed: boolean;
@@ -14,7 +14,7 @@ interface UserState {
   editUserFailed: boolean;
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   user: null,
   onLoginRequest: false,
   onLoginFailed: false,
@@ -90,3 +90,7 @@ export const userSlice = createSlice({
       });
   },
 });
+
+export const { clearUser } = userSlice.actions;
+
+export default userSlice.reducer;
