@@ -6,7 +6,7 @@ import { useSelector } from "../../hooks/hooks";
 
 const OrderDetails = () => {
 
-    const { orderNumber } = useSelector((store: any) => store.order);
+    const { orderNumber } = useSelector((store) => store.order);
 
     return (
         <div className={css.container} >

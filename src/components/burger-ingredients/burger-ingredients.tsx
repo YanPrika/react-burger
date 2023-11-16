@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerIngredients = () => {
     const { ingredients } = useSelector((store: any) => store.ingredients);
-    const { bunComponent, otherComponents } = useSelector((store: any) => store.components);
+    const { bunComponent, otherComponents } = useSelector((store) => store.components);
     const [currentTab, setCurrentTab] = useState("bun");
     const location = useLocation();
     const navigate = useNavigate();

@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createOrder } from "../../services/actions/orders";
 
-type orderState = {
+export type orderState = {
     orderNumber: number|null,
     orderRequest: boolean,
     orderFailed: boolean,
 }
-const initialState: orderState = {
+export const initialState: orderState = {
     orderNumber: null,
     orderRequest: false,
     orderFailed: false
@@ -37,3 +37,7 @@ export const orderSlice = createSlice({
         });
     },
   });
+  
+export const { clearOrder } = orderSlice.actions;
+
+export default orderSlice.reducer;

@@ -17,10 +17,10 @@ export type Ingredient = {
     image: string;
     image_mobile: string;
     image_large: string;
-    __v: number;
+    //__v: number;
     componentId?: number;
     count: number;
-    key: string
+    key?: string
   };
 
 export type IngrType = 'top'|'bottom'|undefined;
@@ -47,7 +47,9 @@ export type TResWithoutData = {
 };
 
 export type TUser = {
-  user: { email: string; name: string };
+  //user: { email: string; name: string };
+  email: string | null;
+  name: string | null;
 };
 
 export type TUserData = {
@@ -69,6 +71,11 @@ export type TUserWithToken = TUserData & TToken;
 export type THandleSubmit = (evt: FormEvent<HTMLFormElement>) => void;
 
 export type TIngredientWithCount = Ingredient & {count: number}
+
+export type TOrder = {
+  name: string;
+  order: { number: number };
+};
 
 export type TOrderInfo = {
   _id: string;

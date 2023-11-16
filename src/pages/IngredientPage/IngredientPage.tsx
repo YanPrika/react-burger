@@ -4,7 +4,7 @@ import IngredientDetails from '../../components/ingredient-details/ingredient-de
 import { useParams } from 'react-router-dom';
 
 export const IngredientPage = () => {
-    const { ingredients } = useSelector((store: any) => store.ingredients);
+    const { ingredients } = useSelector((store) => store.ingredients);
     let { ingredientId } = useParams();
     return (
         <div>
