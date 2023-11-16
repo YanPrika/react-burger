@@ -48,8 +48,8 @@ export type TResWithoutData = {
 
 export type TUser = {
   //user: { email: string; name: string };
-  email: string;
-  name: string
+  email: string | null;
+  name: string | null;
 };
 
 export type TUserData = {

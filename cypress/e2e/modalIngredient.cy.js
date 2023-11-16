@@ -1,7 +1,7 @@
 describe("open modal with ingredient", () => {
   before(() => {
     cy.viewport(1400, 1200);
-    cy.visit("http://localhost:3000");
+    cy.visit("./");
   });
 
   it("open modal with ingredient", () => {
